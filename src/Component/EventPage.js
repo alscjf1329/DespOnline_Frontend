@@ -1,16 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { AiOutlineFrown } from "react-icons/ai";
+import React, {useEffect, useState} from "react";
 
-const Fail = () => {
-    const [searchParams] = useSearchParams();
-
+const EventPage = () => {
     const [contentsHeight, setContetnsHeight] = useState(100); // 초기 높이를 100으로 설정
     const [contentsWidth, setContentsWidth] = useState(100); // 초기 너비를 100으로 설정
-    const contentsRef = useRef(null); // 컨텐츠의 ref를 설정
-
-    const navigate = useNavigate();
-    const redirect = "/Donation";
 
     useEffect(() => {
         const updateSize = () => {
@@ -32,8 +24,6 @@ const Fail = () => {
         };
     }, []);
 
-    // css
-    //css
     const donationChargeContainer = {
         width: contentsWidth > 700 ? contentsWidth / 1.5 : contentsWidth,
         height: contentsHeight > 500 ? contentsHeight / 2 : contentsHeight,
@@ -46,80 +36,12 @@ const Fail = () => {
         flexDirection: "column",
     };
 
-    const successTitleContainer = {
-        width: contentsWidth > 700 ? contentsWidth / 1.5 - contentsWidth * 0.08 : contentsWidth - contentsWidth * 0.08,
-        height: contentsHeight > 500 ? contentsHeight / 3.5 : contentsHeight / 3,
-        marginLeft: contentsWidth * 0.05,
-        marginRight: contentsWidth * 0.05,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        flexDirection: "column",
-        borderBottom: "2px solid #372B2A", // 아래 테두리를 흰색으로 설정
-    };
-
-    const paymentsTitle = {
-        fontSize: contentsWidth > 1100 ? "35px" : contentsWidth > 900 ? "30px" : contentsWidth > 700 ? "25px" : "20px", // 글자 크기 설정
-        color: "#372B2A",
-        fontWeight: "bold",
-        margin: 0,
-        marginTop: "0px",
-        marginBottom: "0px",
-    };
-
-    const successcontentsContainer = {
-        width: contentsWidth > 700 ? contentsWidth / 1.5 - contentsWidth * 0.08 : contentsWidth - contentsWidth * 0.08,
-        marginLeft: contentsWidth * 0.05,
-        marginRight: contentsWidth * 0.05,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-    };
-
-    const sucessSubContents = {
-        fontSize: contentsWidth > 1100 ? "20px" : contentsWidth > 900 ? "18px" : contentsWidth > 700 ? "16px" : "15px", // 글자 크기 설정
-        color: "#575656",
-        fontWeight: "bold",
-        margin: 0,
-        marginTop: "0px",
-        marginBottom: "5px",
-    };
-
-    const sucessContents = {
-        fontSize: contentsWidth > 1100 ? "20px" : contentsWidth > 900 ? "18px" : contentsWidth > 700 ? "16px" : "15px", // 글자 크기 설정
-        color: "#372B2A",
-        fontWeight: "bold",
-        margin: 0,
-        marginTop: "0px",
-        marginBottom: "5px",
-    };
-
     return (
-        <div ref={contentsRef} className="contents">
+        <div>
             <div style={donationChargeContainer}>
-                <div style={successTitleContainer}>
-                    <AiOutlineFrown size={contentsWidth > 600 ? 60 : contentsWidth > 500 ? 50 : 40} color="#372B2A" />
-                    <p style={paymentsTitle}>결제에 실패했습니다.</p>
-                    <p style={sucessContents}>
-                        <span
-                            className="pathToDonation"
-                            style={{ textDecoration: "underline", cursor: "pointer" }}
-                            onClick={() => {
-                                navigate(redirect); // 클릭 시 리다이렉션 이벤트 발생
-                            }}
-                        >
-                            여기
-                        </span>
-                        를 눌러 다시 시도해주세요
-                    </p>
-                </div>
-                <div style={successcontentsContainer}>
-                    <p style={sucessSubContents}>[ 사유 ]</p>
-                    <p style={sucessContents}> {` - ${searchParams.get("message")} - `}</p>
-                </div>
+                <p> 이벤트 페이지</p>
             </div>
         </div>
     );
 };
-export default Fail;
+export default EventPage;

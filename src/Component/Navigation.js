@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineMenu } from "react-icons/ai";
+import React, {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const Navigation = () => {
     //size에 따라 nav sidebar 생셩
@@ -42,14 +41,15 @@ const Navigation = () => {
 
     //nav 버튼 클릭 시 페이지 이동
     const buttonsLeft = [
-        { label: "공지사항", path: "/Announcement" },
-        { label: "캐릭터 가이드", path: "/Character" },
+        {label: "공지\n사항", path: "/Announcement"},
+        {label: "캐릭터\n가이드", path: "/Character"},
+        {label: "이벤트", path: "/EventPage"},
     ];
-    const buttonsHome = [{ label: "Home", path: "/" }];
+    const buttonsHome = [{label: "Home", path: "/"}];
     const buttonsRight = [
-        { label: "랭킹", path: "/Ranking" },
-        { label: "유저 검색", path: "/UserSearch" },
-        { label: "충전", path: "/NicknameValidation" },
+        {label: "랭킹", path: "/Ranking"},
+        {label: "유저 검색", path: "/UserSearch"},
+        {label: "충전", path: "/NicknameValidation"},
     ];
     const navigate = useNavigate();
 
@@ -105,6 +105,7 @@ const Navigation = () => {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
+        whiteSpace: "pre-wrap",
     };
     return (
         <div ref={navRef}>
