@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import backEndUri from "../Constants/Constants";
 import SiteInfo from "./SiteInfo";
+import tier from "../Constants/TierConstants";
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const Ranking = () => {
     const [contentsHeight, setContentsHeight] = useState(100);
     const [contentsWidth, setContentsWidth] = useState(100);
@@ -58,7 +60,7 @@ const Ranking = () => {
                 return res.json();
             })
             .then((res) => {
-                console.log("res LEVEL is", res);
+                // console.log("res LEVEL is", res);
                 setDataLEVEL(res);
             })
             .catch((error) => {
@@ -154,40 +156,50 @@ const Ranking = () => {
                 {selectedValue === "PVP" && (
                     <table style={tableStyle}>
                         <thead style={theadStyle}>
-                            <tr>
-                                <th>순위</th>
-                                <th>닉네임</th>
-                                <th>티어</th>
-                                <th>무</th>
-                                <th>패</th>
-                                <th>승</th>
-                                <th>승점</th>
-                                <th>승률</th>
-                            </tr>
+                        <tr>
+                            <th>순위</th>
+                            <th>닉네임</th>
+                            <th>티어</th>
+                            <th>승</th>
+                            <th>무</th>
+                            <th>패</th>
+                            <th>승점</th>
+                            <th>승률</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {dataPVP.length > 0 &&
-                                dataPVP.map((item, index) => (
-                                    <tr
-                                        key={index}
-                                        style={{
-                                            ...trStyle,
-                                            backgroundColor: hoveredRow === index ? "rgba(200,200,200,0.4)" : "inherit",
-                                            fontWeight: hoveredRow === index ? "bold" : "normal",
-                                        }}
-                                        onMouseEnter={() => handleMouseEnter(index)}
-                                        onMouseLeave={handleMouseLeave}
-                                    >
-                                        <td style={tdStyle}>{index + 1}</td>
-                                        <td style={tdStyle}>{item.nickname}</td>
-                                        <td style={tdStyle}>{item.record.tier}</td>
-                                        <td style={tdStyle}>{item.record.draw}</td>
-                                        <td style={tdStyle}>{item.record.defeat}</td>
-                                        <td style={tdStyle}>{item.record.victory}</td>
-                                        <td style={tdStyle}>{item.record.score}</td>
-                                        <td style={tdStyle}>{item.record.winRate}</td>
-                                    </tr>
-                                ))}
+                        {dataPVP.length > 0 &&
+                            dataPVP.map((item, index) => (
+                                <tr
+                                    key={index}
+                                    style={{
+                                        ...trStyle,
+                                        fontWeight: hoveredRow === index ? "bold" : "normal",
+                                    }}
+                                    onMouseEnter={() => handleMouseEnter(index)}
+                                    onMouseLeave={handleMouseLeave}
+                                >
+                                    <td style={tdStyle}>{index + 1}</td>
+                                    <td style={tdStyle}>{item.nickname}</td>
+                                    <td style={{ flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                        <img
+                                            src={tier[item.record.tier]}
+                                            alt={item.record.tier}
+                                            style={{
+                                                width: contentsHeight > 600 ? `${contentsHeight / 15}px` : "40px",
+                                                height: contentsHeight > 600 ? `${contentsHeight / 15}px` : "40px",
+                                            }}
+                                        />
+                                        {item.record.tier}
+                                    </td>
+
+                                    <td style={tdStyle}>{item.record.victory}</td>
+                                    <td style={tdStyle}>{item.record.draw}</td>
+                                    <td style={tdStyle}>{item.record.defeat}</td>
+                                    <td style={tdStyle}>{item.record.score}</td>
+                                    <td style={tdStyle}>{item.record.winRate}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 )}
@@ -195,36 +207,35 @@ const Ranking = () => {
                 {selectedValue === "LEVEL" && (
                     <table style={tableStyle}>
                         <thead style={theadStyle}>
-                            <tr>
-                                <th>순위</th>
-                                <th>닉네임</th>
-                                <th>직업</th>
-                                <th>레벨</th>
-                                <th>경험치</th>
-                                <th>마지막 접속시간</th>
-                            </tr>
+                        <tr>
+                            <th>순위</th>
+                            <th>닉네임</th>
+                            <th>직업</th>
+                            <th>레벨</th>
+                            <th>경험치</th>
+                            <th>마지막 접속시간</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {dataLEVEL.length > 0 &&
-                                dataLEVEL.map((item, index) => (
-                                    <tr
-                                        key={index}
-                                        style={{
-                                            ...trStyle,
-                                            backgroundColor: hoveredRow === index ? "rgba(200,200,200,0.4)" : "inherit",
-                                            fontWeight: hoveredRow === index ? "bold" : "normal",
-                                        }}
-                                        onMouseEnter={() => handleMouseEnter(index)}
-                                        onMouseLeave={handleMouseLeave}
-                                    >
-                                        <td style={tdStyle}>{index + 1}</td>
-                                        <td style={tdStyle}>{item.nickname}</td>
-                                        <td style={tdStyle}>{item.job}</td>
-                                        <td style={tdStyle}>{item.level}</td>
-                                        <td style={tdStyle}>{item.expPercent.toFixed(3)}</td>
-                                        <td style={tdStyle}>{item.lastPlayTime}</td>
-                                    </tr>
-                                ))}
+                        {dataLEVEL.length > 0 &&
+                            dataLEVEL.map((item, index) => (
+                                <tr
+                                    key={index}
+                                    style={{
+                                        ...trStyle,
+                                        fontWeight: hoveredRow === index ? "bold" : "normal",
+                                    }}
+                                    onMouseEnter={() => handleMouseEnter(index)}
+                                    onMouseLeave={handleMouseLeave}
+                                >
+                                    <td style={tdStyle}>{index + 1}</td>
+                                    <td style={tdStyle}>{item.nickname}</td>
+                                    <td style={tdStyle}>{item.job}</td>
+                                    <td style={tdStyle}>{item.level}</td>
+                                    <td style={tdStyle}>{item.expPercent.toFixed(3)}%</td>
+                                    <td style={tdStyle}>{item.lastPlayTime}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 )}
