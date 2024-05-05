@@ -17,7 +17,9 @@ import SignupConfirm from "./SignupConfirm";
 import {logout} from '../auth/authSlice';
 import {useDispatch, useSelector} from "react-redux";
 import EventPage from "./EventPage";
+import CardFlipping from "./EventPages/CardFlipping";
 import backEndUri from "../Constants/Constants";
+import routingPath from "../Constants/PathConstant";
 
 
 const Main = () => {
@@ -156,20 +158,21 @@ const Main = () => {
                     <Router>
                         <Navigation/>
                         <Routes>
-                            <Route exact path="/" element={<Home/>}/>
-                            <Route path="/Announcement" element={<Announcement/>}/>
-                            <Route path="/Character" element={<Character/>}/>
-                            <Route path="/Ranking" element={<Ranking/>}/>
-                            <Route path="/UserSearch" element={<UserSearch/>}/>
-                            <Route path="/NicknameValidation" element={<NicknameValidation/>}/>
-                            <Route path="/Donation" element={<Donation/>}/>
-                            <Route path="/Payments" element={<Payments/>}/>
-                            <Route path="/Success" element={<Success/>}/>
-                            <Route path="/Fail" element={<Fail/>}/>
-                            <Route path="/Signin" element={<Signin/>}/>
-                            <Route path="/Signup" element={<Signup/>}/>
-                            <Route path="/Signup/Confirm" element={<SignupConfirm/>}/>
-                            <Route path="/EventPage" element={<EventPage/>}/>
+                            <Route exact path={routingPath.home} element={<Home/>}/>
+                            <Route path={routingPath.announcement} element={<Announcement/>}/>
+                            <Route path={routingPath.character} element={<Character/>}/>
+                            <Route path={routingPath.ranking} element={<Ranking/>}/>
+                            <Route path={routingPath.userSearch} element={<UserSearch/>}/>
+                            <Route path={routingPath.nicknameValidation} element={<NicknameValidation/>}/>
+                            <Route path={routingPath.donation} element={<Donation/>}/>
+                            <Route path={routingPath.payments} element={<Payments/>}/>
+                            <Route path={routingPath.success} element={<Success/>}/>
+                            <Route path={routingPath.fail} element={<Fail/>}/>
+                            <Route path={routingPath.signin} element={<Signin/>}/>
+                            <Route path={routingPath.signup} element={<Signup/>}/>
+                            <Route path={routingPath.signupConfirm} element={<SignupConfirm/>}/>
+                            <Route path={routingPath.eventPage} element={<EventPage/>}/>
+                            <Route path={routingPath.cardFlipping} element={<CardFlipping/>}/>
                         </Routes>
                     </Router>
                 </div>

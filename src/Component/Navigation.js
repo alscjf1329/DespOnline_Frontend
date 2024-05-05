@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import routingPath from "../Constants/PathConstant";
 
 const Navigation = () => {
     //size에 따라 nav sidebar 생셩
@@ -41,15 +42,15 @@ const Navigation = () => {
 
     //nav 버튼 클릭 시 페이지 이동
     const buttonsLeft = [
-        {label: "공지\n사항", path: "/Announcement"},
-        {label: "캐릭터\n가이드", path: "/Character"},
-        {label: "이벤트", path: "/EventPage"},
+        {label: "공지\n사항", path: routingPath.announcement},
+        {label: "캐릭터\n가이드", path: routingPath.character},
+        {label: "이벤트", path: routingPath.eventPage},
     ];
     const buttonsHome = [{label: "Home", path: "/"}];
     const buttonsRight = [
-        {label: "랭킹", path: "/Ranking"},
-        {label: "유저 검색", path: "/UserSearch"},
-        {label: "충전", path: "/NicknameValidation"},
+        {label: "랭킹", path: routingPath.ranking},
+        {label: "유저 검색", path: routingPath.userSearch},
+        {label: "충전", path: routingPath.nicknameValidation},
     ];
     const navigate = useNavigate();
 

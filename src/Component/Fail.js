@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { AiOutlineFrown } from "react-icons/ai";
+import routingPath from "../Constants/PathConstant";
 
 const Fail = () => {
     const [searchParams] = useSearchParams();
@@ -10,7 +11,7 @@ const Fail = () => {
     const contentsRef = useRef(null); // 컨텐츠의 ref를 설정
 
     const navigate = useNavigate();
-    const redirect = "/Donation";
+    const redirect = routingPath.donation;
 
     useEffect(() => {
         const updateSize = () => {
