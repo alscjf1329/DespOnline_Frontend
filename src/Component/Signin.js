@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import "../CSS/Signin.css";
@@ -11,6 +11,7 @@ const Signin = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [passwordValue, setPasswordValue] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const contentsRef = useRef(null);
 
     useEffect(() => {
         const updateSize = () => {
@@ -28,10 +29,14 @@ const Signin = () => {
         };
     }, []);
 
-    const donationChargeContainer = {
+    const backgroundContainer = {
         width: contentsWidth > 700 ? contentsWidth / 1.5 : contentsWidth,
-        height: contentsHeight > 500 ? contentsHeight / 2 : contentsHeight,
         marginTop: contentsHeight * 0.05,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "20px",
+        flexDirection: "column",
     };
 
     const handlePasswordChange = (e) => {
@@ -64,7 +69,7 @@ const Signin = () => {
             body: JSON.stringify(data) // JSON 형식으로 데이터 변환
         };
         // post 요청 보내기
-        fetch("http://117.16.94.156:20001" + backEndUri.signin, requestOptions)
+        fetch(backEndUri.signin, requestOptions)
             .then(res => {
                 if (!res.ok) {
                     setPasswordValue("")
@@ -79,33 +84,36 @@ const Signin = () => {
     };
 
     return (
-        <div className="container" style={donationChargeContainer}>
-            <form onSubmit={handleSubmit(onSubmit)} className="form">
-                <h2 className="heading">로그인</h2>
+        <div ref={contentsRef} className="contents">
+            <div style={backgroundContainer}>
+                <form onSubmit={handleSubmit(onSubmit)} className="signin-form">
+                    <h2 className="heading">로그인</h2>
 
-                <div className="input-container">
-                    <label htmlFor="id" className="label">아이디</label>
-                    {inputIdContainer}
-                    {errors.id && (
-                        <p className="error-message">{errors.id.message}</p>
+                    <div className="input-container">
+                        <label htmlFor="id" className="label">아이디</label>
+                        {inputIdContainer}
+                        {errors.id && (
+                            <p className="error-message">{errors.id.message}</p>
+                        )}
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="password" className="label">비밀번호</label>
+                        {inputPasswordContainer}
+                        {errors.password && (
+                            <p className="error-message">{errors.password.message}</p>
+                        )}
+                    </div>
+
+                    {errorMessage && (
+                        <p className="error-message">{errorMessage}</p>
                     )}
-                </div>
-
-                <div className="input-container">
-                    <label htmlFor="password" className="label">비밀번호</label>
-                    {inputPasswordContainer}
-                    {errors.password && (
-                        <p className="error-message">{errors.password.message}</p>
-                    )}
-                </div>
-
-                {errorMessage && (
-                    <p className="error-message">{errorMessage}</p>
-                )}
-                <button type="submit" className="button">
-                    로그인
-                </button>
-            </form>
+                    <button type="submit" className="button">
+                        로그인
+                    </button>
+                </form>
+                <SiteInfo width={contentsWidth} height={contentsHeight}/>
+            </div>
         </div>
     );
 };
