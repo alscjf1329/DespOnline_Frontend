@@ -3,8 +3,12 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import "../CSS/Signin.css";
 import backEndUri from "../Constants/Constants";
+import SiteInfo from "./SiteInfo";
+import {useDispatch} from "react-redux";
+import {login} from '../auth/authSlice';
 
 const Signin = () => {
+    const dispatch = useDispatch();
     const [contentsHeight, setContentsHeight] = useState(100);
     const [contentsWidth, setContentsWidth] = useState(100);
     const navigate = useNavigate();
@@ -76,6 +80,7 @@ const Signin = () => {
                     setErrorMessage("로그인에 실패했습니다.")
                     throw new Error('Network response was not ok');
                 }
+                dispatch(login());
                 navigate("/eventPage"); // 페이지 이동
             })
             .catch(error => {

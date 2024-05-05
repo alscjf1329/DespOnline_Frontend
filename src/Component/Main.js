@@ -11,16 +11,39 @@ import Payments from "./Payments";
 import Success from "./Success";
 import Fail from "./Fail";
 import NicknameValidation from "./NicknameValidation";
-import EventPage from "./EventPage";
 import Signin from "./Signin";
 import Signup from "./Signup";
-import AuthenticateServerUser from "./AuthenticateServerUser"; // Signup 컴포넌트 import 추가
+import SignupConfirm from "./SignupConfirm";
+import {logout} from '../auth/authSlice';
+import {useDispatch, useSelector} from "react-redux";
+import EventPage from "./EventPage";
+import backEndUri from "../Constants/Constants";
+
 
 const Main = () => {
     const [hour, setHour] = useState(new Date().getHours());
     const mainMap_night = "https://despbukkit.s3.ap-northeast-2.amazonaws.com/mainMap_night.jpg";
     const mainMap_daytime = "https://despbukkit.s3.ap-northeast-2.amazonaws.com/mainMap_daytime.jpg";
     const mainMap_evening = "https://despbukkit.s3.ap-northeast-2.amazonaws.com/mainMap_evening.jpg";
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        const requestOptions = {
+            method: 'GET', // JSON 형식으로 데이터 변환
+        };
+        // post 요청 보내기
+        fetch(backEndUri.signout, requestOptions)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        dispatch(logout());
+    };
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -56,7 +79,7 @@ const Main = () => {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        height: "100vh",
+        height: "100%",
         overflow: "hidden",
     };
 
@@ -119,12 +142,15 @@ const Main = () => {
             <div style={containerStyle}></div>
             <div style={containerCoverStyle}>
                 <div style={contentLayoutStyle}>
-
                     <nav style={navStyle}>
                         <div/>
                         <div style={linkContainerStyle}>
-                            <a href="/signin" style={linkStyle}>Sign In</a>
-                            <a href="/signup" style={linkStyle}>Sign Up</a>
+                            {isAuthenticated ? (
+                                <a href="/signin" onClick={handleLogout} style={linkStyle}>로그아웃</a>
+                            ) : (
+                                <a href="/signin" style={linkStyle}>로그인</a>
+                            )}
+                            <a href="/signup" style={linkStyle}>회원가입</a>
                         </div>
                     </nav>
                     <Router>
@@ -140,10 +166,10 @@ const Main = () => {
                             <Route path="/Payments" element={<Payments/>}/>
                             <Route path="/Success" element={<Success/>}/>
                             <Route path="/Fail" element={<Fail/>}/>
-                            <Route path="/EventPage" element={<EventPage/>}/>
                             <Route path="/Signin" element={<Signin/>}/>
                             <Route path="/Signup" element={<Signup/>}/>
-                            <Route path="/AuthenticateServerUser" element={<AuthenticateServerUser/>}/>
+                            <Route path="/Signup/Confirm" element={<SignupConfirm/>}/>
+                            <Route path="/EventPage" element={<EventPage/>}/>
                         </Routes>
                     </Router>
                 </div>
