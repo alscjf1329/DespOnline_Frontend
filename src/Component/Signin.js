@@ -6,6 +6,7 @@ import backEndUri from "../Constants/Constants";
 import SiteInfo from "./SiteInfo";
 import {useDispatch} from "react-redux";
 import {login} from '../auth/authSlice';
+import routingPath from "../Constants/PathConstant";
 
 const Signin = () => {
     const dispatch = useDispatch();
@@ -17,22 +18,6 @@ const Signin = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const contentsRef = useRef(null);
 
-    useEffect(() => {
-        const updateSize = () => {
-            const newHeight = window.innerHeight;
-            const newWidth = window.innerWidth;
-            setContentsHeight(newHeight);
-            setContentsWidth(newWidth);
-        };
-
-        updateSize();
-        window.addEventListener("resize", updateSize);
-
-        return () => {
-            window.removeEventListener("resize", updateSize);
-        };
-    }, []);
-
     const backgroundContainer = {
         width: contentsWidth > 700 ? contentsWidth / 1.5 : contentsWidth,
         marginTop: contentsHeight * 0.05,
@@ -43,8 +28,54 @@ const Signin = () => {
         flexDirection: "column",
     };
 
+    useEffect(() => {
+        const updateSize = () => {
+            const newHeight = window.innerHeight;
+            const newWidth = window.innerWidth;
+            setContentsHeight(newHeight);
+            setContentsWidth(newWidth);
+        };
+        updateSize();
+        window.addEventListener("resize", updateSize);
+
+        signin(null);
+
+        return () => {
+            window.removeEventListener("resize", updateSize);
+        };
+    }, []);
+
+    const signin = (data) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data), // JSON 형식으로 데이터 변환
+            credentials: "include"
+        };
+        // post 요청 보내기
+        fetch(backEndUri.signin, requestOptions)
+            .then(res => {
+                if (!res.ok) {
+                    setPasswordValue("")
+                    if (data != null) {
+                        setErrorMessage("로그인에 실패했습니다.")
+                    }
+                    return;
+                }
+                dispatch(login());
+                navigate(routingPath.eventPage); // 페이지 이동
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
+
     const handlePasswordChange = (e) => {
         setPasswordValue(e.target.value); // 비밀번호 상태(state) 업데이트
+    };
+
+    const onSubmit = (data) => {
+        signin(data)
     };
 
     const inputIdContainer = (<input
@@ -65,28 +96,6 @@ const Signin = () => {
         value={passwordValue}
         onChange={handlePasswordChange}
     />)
-
-    const onSubmit = (data) => {
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data) // JSON 형식으로 데이터 변환
-        };
-        // post 요청 보내기
-        fetch(backEndUri.signin, requestOptions)
-            .then(res => {
-                if (!res.ok) {
-                    setPasswordValue("")
-                    setErrorMessage("로그인에 실패했습니다.")
-                    throw new Error('Network response was not ok');
-                }
-                dispatch(login());
-                navigate("/eventPage"); // 페이지 이동
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    };
 
     return (
         <div ref={contentsRef} className="contents">
