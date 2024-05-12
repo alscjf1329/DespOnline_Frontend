@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {Link, Route, Routes} from "react-router-dom";
 import Navigation from "./Navigation";
 import Home from "./Home";
 import Announcement from "./Announcement";
@@ -148,33 +148,31 @@ const Main = () => {
                         <div/>
                         <div style={linkContainerStyle}>
                             {isAuthenticated ? (
-                                <a href="/signin" onClick={handleLogout} style={linkStyle}>로그아웃</a>
+                                <Link to={routingPath.home} onClick={handleLogout} style={linkStyle}>로그아웃</Link>
                             ) : (
-                                <a href="/signin" style={linkStyle}>로그인</a>
+                                <Link to={routingPath.signin} style={linkStyle}>로그인</Link>
                             )}
-                            <a href="/signup" style={linkStyle}>회원가입</a>
+                            <Link to={routingPath.signup} style={linkStyle}>회원가입</Link>
                         </div>
                     </nav>
-                    <Router>
-                        <Navigation/>
-                        <Routes>
-                            <Route exact path={routingPath.home} element={<Home/>}/>
-                            <Route path={routingPath.announcement} element={<Announcement/>}/>
-                            <Route path={routingPath.character} element={<Character/>}/>
-                            <Route path={routingPath.ranking} element={<Ranking/>}/>
-                            <Route path={routingPath.userSearch} element={<UserSearch/>}/>
-                            <Route path={routingPath.nicknameValidation} element={<NicknameValidation/>}/>
-                            <Route path={routingPath.donation} element={<Donation/>}/>
-                            <Route path={routingPath.payments} element={<Payments/>}/>
-                            <Route path={routingPath.success} element={<Success/>}/>
-                            <Route path={routingPath.fail} element={<Fail/>}/>
-                            <Route path={routingPath.signin} element={<Signin/>}/>
-                            <Route path={routingPath.signup} element={<Signup/>}/>
-                            <Route path={routingPath.signupConfirm} element={<SignupConfirm/>}/>
-                            <Route path={routingPath.eventPage} element={<EventPage/>}/>
-                            <Route path={routingPath.cardFlipping} element={<CardFlipping/>}/>
-                        </Routes>
-                    </Router>
+                    <Navigation/>
+                    <Routes>
+                        <Route exact path={routingPath.home} element={<Home/>}/>
+                        <Route path={routingPath.announcement} element={<Announcement/>}/>
+                        <Route path={routingPath.character} element={<Character/>}/>
+                        <Route path={routingPath.ranking} element={<Ranking/>}/>
+                        <Route path={routingPath.userSearch} element={<UserSearch/>}/>
+                        <Route path={routingPath.nicknameValidation} element={<NicknameValidation/>}/>
+                        <Route path={routingPath.donation} element={<Donation/>}/>
+                        <Route path={routingPath.payments} element={<Payments/>}/>
+                        <Route path={routingPath.success} element={<Success/>}/>
+                        <Route path={routingPath.fail} element={<Fail/>}/>
+                        <Route path={routingPath.signin} element={<Signin/>}/>
+                        <Route path={routingPath.signup} element={<Signup/>}/>
+                        <Route path={routingPath.signupConfirm} element={<SignupConfirm/>}/>
+                        <Route path={routingPath.eventPage} element={<EventPage/>}/>
+                        <Route path={routingPath.cardFlipping} element={<CardFlipping/>}/>
+                    </Routes>
                 </div>
             </div>
         </div>
