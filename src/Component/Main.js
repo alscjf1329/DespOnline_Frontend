@@ -32,7 +32,8 @@ const Main = () => {
 
     const handleLogout = () => {
         const requestOptions = {
-            method: 'GET', // JSON 형식으로 데이터 변환
+            method: 'GET',
+            credentials: 'include',
         };
         // post 요청 보내기
         fetch(backEndUri.signout, requestOptions)
