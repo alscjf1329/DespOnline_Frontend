@@ -1,30 +1,52 @@
 import React, {useEffect, useState} from "react";
+import backEndUri from "../Constants/Constants";
+import {useNavigate} from "react-router-dom";
 
 const EventPage = () => {
-    const [contentsHeight, setContetnsHeight] = useState(100); // 초기 높이를 100으로 설정
-    const [contentsWidth, setContentsWidth] = useState(100); // 초기 너비를 100으로 설정
+    const [contentsHeight, setContentsHeight] = useState(100);
+    const [contentsWidth, setContentsWidth] = useState(100);
+    const [events, setEvents] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const updateSize = () => {
-            const newHeight = window.innerHeight; // 현재 브라우저 창의 높이
-            const newWidth = window.innerWidth; // 현재 브라우저 창의 너비
-            setContetnsHeight(newHeight); // 높이 업데이트
-            setContentsWidth(newWidth); // 너비 업데이트
+            const newHeight = window.innerHeight;
+            const newWidth = window.innerWidth;
+            setContentsHeight(newHeight);
+            setContentsWidth(newWidth);
         };
 
-        // 컴포넌트가 마운트될 때 사이즈 설정
         updateSize();
-
-        // 브라우저 창의 크기가 변경될 때 사이즈 다시 설정
         window.addEventListener("resize", updateSize);
 
+        const requestOptions = {
+            method: 'GET',
+        };
+
+        fetch(backEndUri.getEventsInPeriod, requestOptions)
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setEvents(data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
         return () => {
-            // 컴포넌트가 언마운트될 때 이벤트 리스너 삭제
             window.removeEventListener("resize", updateSize);
         };
     }, []);
 
-    const donationChargeContainer = {
+    function handleEventClick(eventItem) {
+        navigate(eventItem.type + "/" + eventItem.id)
+    }
+
+    const backgroundContainer = {
         width: contentsWidth > 700 ? contentsWidth / 1.5 : contentsWidth,
         height: contentsHeight > 500 ? contentsHeight / 2 : contentsHeight,
         marginTop: contentsHeight * 0.05,
@@ -36,12 +58,45 @@ const EventPage = () => {
         flexDirection: "column",
     };
 
+    const eventListContainer = {
+        width: '90%',
+        height: '90%',
+        overflowY: 'auto',
+    };
+
+    const eventContainer = {
+        marginBottom: '10px',
+        padding: '10px',
+        borderRadius: '10px',
+        background: '#fff',
+        display: 'flex',
+        alignItems: 'center',
+    };
+
+    const eventBanner = {
+        width: '60%',
+        marginRight: '10px',
+    };
+
     return (
-        <div>
-            <div style={donationChargeContainer}>
-                <p> 이벤트 페이지</p>
+        <div style={backgroundContainer}>
+            <div style={eventListContainer}>
+                {events.length > 0 ? (
+                    events.map((eventItem, index) => (
+                        <div key={index} style={eventContainer} onClick={() => handleEventClick(eventItem)}>
+                            <img src={eventItem.bannerUri} style={eventBanner} alt="이벤트 베너"/>
+                            <div>
+                                <h3>{eventItem.title}</h3>
+                                <p>{eventItem.description}</p>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p style={{textAlign: 'center'}}>이벤트가 없습니다.</p>
+                )}
             </div>
         </div>
     );
 };
+
 export default EventPage;
