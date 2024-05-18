@@ -13,25 +13,25 @@
     align-items: center;
 }
 
-.heading {
+.signin-heading {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
     text-transform: uppercase;
 }
 
-.input-container {
+.signin-input-container {
     margin-bottom: 20px;
     width: 90%;
 }
 
-.label {
+.signin-label {
     color: #333;
     margin-bottom: 5px;
     display: block;
 }
 
-.input-field {
+.signin-input-field {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -46,7 +46,7 @@
     text-align: left;
 }
 
-.button {
+.signin-button {
     width: 90%;
     padding: 10px;
     background-color: #8b4513;

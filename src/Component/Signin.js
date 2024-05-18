@@ -82,7 +82,7 @@ const Signin = () => {
         id="id"
         {...register('id', {required: '아이디를 입력하세요'})}
         type="text"
-        className="input-field"
+        className="signin-input-field"
     />)
 
     const inputPasswordContainer = (<input
@@ -92,7 +92,7 @@ const Signin = () => {
             minLength: {value: 6, message: '비밀번호는 최소 6자 이상이어야 합니다'}
         })}
         type="password"
-        className="input-field"
+        className="signin-input-field"
         value={passwordValue}
         onChange={handlePasswordChange}
     />)
@@ -101,18 +101,18 @@ const Signin = () => {
         <div ref={contentsRef} className="contents">
             <div style={backgroundContainer}>
                 <form onSubmit={handleSubmit(onSubmit)} className="signin-form">
-                    <h2 className="heading">로그인</h2>
+                    <h2 className="signin-heading">로그인</h2>
 
-                    <div className="input-container">
-                        <label htmlFor="id" className="label">아이디</label>
+                    <div className="signin-input-container">
+                        <label htmlFor="id" className="signin-label">아이디</label>
                         {inputIdContainer}
                         {errors.id && (
                             <p className="error-message">{errors.id.message}</p>
                         )}
                     </div>
 
-                    <div className="input-container">
-                        <label htmlFor="password" className="label">비밀번호</label>
+                    <div className="signin-input-container">
+                        <label htmlFor="password" className="signin-label">비밀번호</label>
                         {inputPasswordContainer}
                         {errors.password && (
                             <p className="error-message">{errors.password.message}</p>
@@ -122,7 +122,7 @@ const Signin = () => {
                     {errorMessage && (
                         <p className="error-message">{errorMessage}</p>
                     )}
-                    <button type="submit" className="button">
+                    <button type="submit" className="signin-button">
                         로그인
                     </button>
                 </form>

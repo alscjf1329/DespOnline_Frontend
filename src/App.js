@@ -6,17 +6,14 @@ import store from './auth/store';
 
 const App = () => {
     return (
-
-
-    <Provider store={store}>]
-        <BrowserRouter basename="/">
-            <div className="App">
-                <Main/>
-            </div>
-        </BrowserRouter>
-    </Provider>
-)
-    ;
+        <Provider store={store}>
+            <BrowserRouter basename="/">
+                <div className="App">
+                    <Main/>
+                </div>
+            </BrowserRouter>
+        </Provider>
+    );
 };
 
 export default App;

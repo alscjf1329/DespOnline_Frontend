@@ -14,25 +14,25 @@
     align-items: center;
 }
 
-.heading {
+.signup-heading {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
     text-transform: uppercase;
 }
 
-.input-container {
+.signup-input-container {
     margin-bottom: 20px;
     width: 90%;
 }
 
-.label {
+.signup-label {
     color: #333;
     margin-bottom: 5px;
     display: block;
 }
 
-.input-field-id {
+.signup-input-field-id {
     width: 80%;
     padding: 10px;
     border-radius: 5px;
@@ -40,7 +40,7 @@
     box-sizing: border-box;
 }
 
-.input-field-password {
+.signup-input-field-password {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -48,7 +48,7 @@
     box-sizing: border-box;
 }
 
-.input-field-confirmedPassword {
+.signup-input-field-confirmedPassword {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -63,14 +63,14 @@
     text-align: left;
 }
 
-.correct-message {
+.signup-correct-message {
     color: green;
     font-size: 0.8rem;
     margin-top: 5px;
     text-align: left;
 }
 
-.button {
+.signup-button {
     width: 90%;
     padding: 10px;
     background-color: #8b4513;
@@ -81,7 +81,7 @@
     text-transform: uppercase;
 }
 
-.id-duplication-confirm-button {
+.signup-id-duplication-confirm-button {
     width: 20%;
     padding: 10px;
     background-color: #8b4513;

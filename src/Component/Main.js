@@ -17,7 +17,7 @@ import SignupConfirm from "./SignupConfirm";
 import {logout} from '../auth/authSlice';
 import {useDispatch, useSelector} from "react-redux";
 import EventPage from "./EventPage";
-import CardFlipping from "./EventPages/CardFlipping";
+import CardFlipping from "./EventPages/CardFlipping/CardFlipping";
 import backEndUri from "../Constants/Constants";
 import routingPath from "../Constants/PathConstant";
 
@@ -62,7 +62,7 @@ const Main = () => {
     const mainMap = hour >= 7 && hour < 16 ? mainMap_daytime : hour >= 16 && hour < 20 ? mainMap_evening : mainMap_night;
 
     const [width, setWidth] = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
+    const [height, setHeight] = useState(window.innerHeight * 1.5 + 300);
 
     const handleResize = () => {
         setWidth(window.innerWidth);
@@ -79,8 +79,7 @@ const Main = () => {
     const containerBackStyle = {
         backgroundColor: "#231C0D",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        flexDirection: "column",
         width: "100%",
         height: "100%",
         overflow: "hidden",
@@ -112,6 +111,7 @@ const Main = () => {
     const contentLayoutStyle = {
         height: height,
         width: width > 700 ? width / 1.5 : width,
+        marginTop: "50px"
     };
 
     const navStyle = {

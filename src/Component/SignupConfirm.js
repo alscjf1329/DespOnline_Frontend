@@ -69,9 +69,9 @@ const SignupConfirm = (signupData) => {
 
     return (
         <div style={backgroundContainer}>
-            <div className={isLoading ? "loading-overlay" : ""}>
+            <div className={isLoading ? "signup-confirm-loading-overlay" : ""}>
                 {isLoading && ( // 로딩 중일 때 로딩 화면 표시
-                    <div className="loading">인증 중...</div>
+                    <div className="signup-confirm-loading">인증 중...</div>
                 )}
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="signin-form">

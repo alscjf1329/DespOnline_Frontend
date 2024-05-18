@@ -93,32 +93,32 @@ const Signup = () => {
                     isSignupConfirmNeeded ?
                         <SignupConfirm id={id} password={password}/> :
                         <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
-                            <h2 className="heading">회원가입</h2>
+                            <h2 className="signup-heading">회원가입</h2>
 
-                            <div className="input-container">
-                                <label htmlFor="id" className="label">
+                            <div className="signup-input-container">
+                                <label htmlFor="id" className="signup-label">
                                     아이디
                                 </label>
                                 <input
                                     id="id"
                                     {...register("id", {required: "아이디를 입력하세요"})}
                                     type="text"
-                                    className="input-field-id"
+                                    className="signup-input-field-id"
                                     disabled={isIdConfirmed}
                                 />
                                 <button
                                     id="idDuplicationConfirmButton"
                                     type="button"
                                     onClick={onConfirmIdDuplication}
-                                    className="id-duplication-confirm-button"
+                                    className="signup-id-duplication-confirm-button"
                                 >
                                     중복확인
                                 </button>
                                 {errors.id && <p className="error-message">{errors.id.message}</p>}
                             </div>
 
-                            <div className="input-container">
-                                <label htmlFor="password" className="label">
+                            <div className="signup-input-container">
+                                <label htmlFor="password" className="signup-label">
                                     비밀번호
                                 </label>
                                 <input
@@ -131,14 +131,14 @@ const Signup = () => {
                                         },
                                     })}
                                     type="password"
-                                    className="input-field-password"
+                                    className="signup-input-field-password"
                                 />
                                 {errors.password && (
                                     <p className="error-message">{errors.password.message}</p>
                                 )}
                             </div>
-                            <div className="input-container">
-                                <label htmlFor="confirmedPassword" className="label">
+                            <div className="signup-input-container">
+                                <label htmlFor="confirmedPassword" className="signup-label">
                                     비밀번호 확인
                                 </label>
                                 <input
@@ -149,7 +149,7 @@ const Signup = () => {
                                             value === password ? null : "비밀번호가 일치하지 않습니다.",
                                     })}
                                     type="password"
-                                    className="input-field-confirmedPassword"
+                                    className="signup-input-field-confirmedPassword"
                                 />
                                 {errors.confirmedPassword && (
                                     <p className="error-message">
@@ -157,12 +157,12 @@ const Signup = () => {
                                     </p>
                                 )}
                                 {isPasswordMatched ?
-                                    <p className="correct-message">{isPasswordMatchedMessage}</p> :
+                                    <p className="signup-correct-message">{isPasswordMatchedMessage}</p> :
                                     <p className="error-message">{isPasswordMatchedMessage}</p>
                                 }
                             </div>
 
-                            <button type="submit" className="button">
+                            <button type="submit" className="signup-button">
                                 다음
                             </button>
                         </form>

@@ -1,4 +1,4 @@
-.loading-overlay {
+.signup-confirm-loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
     z-index: 9999; /* 로딩 화면이 최상위로 나타나도록 설정 */
 }
 
-.loading {
+.signup-confirm-loading {
     font-size: 24px;
     color: #333;
 }
