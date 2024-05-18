@@ -2,16 +2,19 @@ import React, {useEffect, useState} from "react";
 import backEndUri from "../../Constants/Constants";
 import {useLocation, useNavigate} from "react-router-dom";
 import routingPath from "../../Constants/PathConstant";
+import "../../CSS/CardFlipping.css";
 
 const CardFlipping = () => {
     const [contentsHeight, setContentsHeight] = useState(100);
     const [contentsWidth, setContentsWidth] = useState(100);
     const navigate = useNavigate();
     const location = useLocation();
+    const [eventInfo, setEventInfo] = useState(null);
     const [cardStatus, setCardStatus] = useState([]);
     const [hoverIndex, setHoverIndex] = useState(null);
     const [flipIndexes, setFlipIndexes] = useState([]);
-    const [flipCount, setFlipCount] = useState(0);
+    const [flipOpportunity, setFlipOpportunity] = useState(0);
+    const [resetOpportunity, setResetOpportunity] = useState(0);
 
     useEffect(() => {
         const updateSize = () => {
@@ -37,8 +40,11 @@ const CardFlipping = () => {
                 return res.json();
             })
             .then((cardFlippingInfo) => {
+                setFlipOpportunity(cardFlippingInfo.eventUserInfo.flipOpportunity);
+                setResetOpportunity(cardFlippingInfo.eventUserInfo.resetOpportunity);
                 setCardStatus(cardFlippingInfo.eventUserInfo.progress);
-                setFlipCount(cardFlippingInfo.eventInfo.info.flipCount)
+
+                setEventInfo(cardFlippingInfo.eventInfo);
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -86,7 +92,7 @@ const CardFlipping = () => {
         alignItems: "center",
         justifyContent: "center",
         background: "#fff",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)"
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
     };
 
     const textStyle = {
@@ -94,10 +100,21 @@ const CardFlipping = () => {
         fontWeight: "bold",
         color: "#333",
         textAlign: "center",
+        transition: "transform 0.3s ease-in-out",
     };
 
-    const flippedStyle = {
+    const flippedTextStyle = {
         transform: "rotateY(180deg)",
+        transition: "all 500ms"
+    };
+
+    const unFlippedStyle = (index) => {
+        return {
+            transform:
+                hoverIndex === index || flipIndexes.includes(index)
+                    ? "scale(1.2)"
+                    : "scale(1)",
+        };
     };
 
     const handleCardHover = (index) => {
@@ -110,21 +127,80 @@ const CardFlipping = () => {
         }
 
         if (flipIndexes.includes(index)) {
-            const newFlipIndex = [...flipIndexes].filter(e => e !== index)
+            const newFlipIndex = [...flipIndexes].filter((e) => e !== index);
             setFlipIndexes(newFlipIndex);
             return;
         }
 
-        if (flipIndexes.length >= flipCount) {
+        if (flipIndexes.length >= eventInfo.info.flipCount) {
             return;
         }
 
         const newFlipIndex = [...flipIndexes, index];
         setFlipIndexes(newFlipIndex);
-    }
+    };
+
+    const onClickFlipButton = () => {
+        if (flipIndexes.length !== eventInfo.info.flipCount) {
+            return;
+        }
+        const data = {
+            flipIndexes: flipIndexes,
+        };
+
+        const requestOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data), // JSON 형식으로 데이터 변환
+            credentials: "include",
+        };
+        const beforeCardStatus = [...cardStatus];
+
+        fetch(backEndUri.flipCards(getEventId()), requestOptions)
+            .then((res) => {
+                if (!res.ok) {
+                    alert("용사님! 뒤집을 기회가 없는거 아닐까요?");
+                }
+                return res.json();
+            })
+            .then((flipResult) => {
+                if (flipResult.success) {
+                    setCardStatus(flipResult.cardStatus);
+                } else {
+                    const newCardStatus = [...cardStatus];
+
+                    let i = 0
+                    flipIndexes.forEach(index => {
+                        newCardStatus[index] = flipResult.flippedCardAnswer[i];
+                        i++;
+                    })
+
+                    setCardStatus(newCardStatus)
+                }
+
+                if (!flipResult.success) {
+                    setTimeout(() => {
+                        setCardStatus(beforeCardStatus);
+                    }, 1000);
+                }
+                setFlipIndexes([]);
+            })
+            .catch((error) => {
+                setFlipIndexes([]);
+                console.error("Error:", error);
+            });
+    };
 
     return (
         <div style={backgroundContainer}>
+            <div className="eventInfoContainer">
+                <div className="titleContainer">
+                    {eventInfo !== null ? eventInfo.title : null}
+                </div>
+                <div className="descriptionContainer">
+                    {eventInfo !== null ? eventInfo.description : null}
+                </div>
+            </div>
             <div style={cardContainer}>
                 {cardStatus &&
                     cardStatus.map((card, index) => (
@@ -132,18 +208,30 @@ const CardFlipping = () => {
                             key={index}
                             style={{
                                 ...cardStyle,
-                                ...(card ? flippedStyle : {}),
-                                transform: hoverIndex === index || flipIndexes.includes(index) ? "scale(1.2)" : "scale(1)",
+                                ...(card !== null ? {transform: "rotateY(180deg)"} : {}),
+                                ...unFlippedStyle(index),
                             }}
                             onMouseEnter={() => handleCardHover(index)}
                             onMouseLeave={() => handleCardHover(index)}
                             onClick={() => onClickCard(index)}
                         >
-                            <div style={textStyle}>
-                                {card ? "뒤집" : "앞면"}
+                            <div style={{
+                                ...textStyle,
+                                ...(card !== null ? flippedTextStyle : unFlippedStyle())
+                            }}>
+                                {card !== null ? <div> {card} </div> : <div> {"앞면"} </div>}
                             </div>
                         </div>
                     ))}
+            </div>
+            <div className="button-container">
+                <button className="button" onClick={onClickFlipButton}>
+                    Flip {flipOpportunity}회
+                </button>
+                <button className="button" onClick={() => {
+                }}>
+                    Reset {resetOpportunity}회
+                </button>
             </div>
         </div>
     );
