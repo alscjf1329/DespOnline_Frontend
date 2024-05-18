@@ -26,7 +26,7 @@ const EventPage = () => {
         fetch(backEndUri.getEventsInPeriod, requestOptions)
             .then((res) => {
                 if (!res.ok) {
-                    throw new Error('Network response was not ok');
+                    alert("관리자에게 문의해주세요")
                 }
                 return res.json();
             })

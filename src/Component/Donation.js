@@ -1,7 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
-import SiteInfo from "./SiteInfo";
-import { cash, maxPrice } from "../Constants/DonationConstans";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {cash, maxPrice} from "../Constants/DonationConstans";
+import {useLocation, useNavigate} from "react-router-dom";
 import routingPath from "../Constants/PathConstant";
 
 const Donation = () => {
@@ -9,7 +8,7 @@ const Donation = () => {
     const [contentsWidth, setContentsWidth] = useState(100); // 초기 너비를 100으로 설정
     const contentsRef = useRef(null); // 컨텐츠의 ref를 설정
     const location = useLocation();
-    const { confirmedNickname } = location.state;
+    const {confirmedNickname} = location.state;
     const userNickname = confirmedNickname;
 
     useEffect(() => {
@@ -229,13 +228,14 @@ const Donation = () => {
                                     <p style={donationCashText}>{cashLabel}</p>
                                 </div>
                                 <div style={cashLabelAmountContainer}>
-                                    <div style={{ paddingRight: contentsWidth * 0.01 }}>
-                                        <button style={countbuttonStyle} onClick={() => updateAmount(cashAmount, false)}>
+                                    <div style={{paddingRight: contentsWidth * 0.01}}>
+                                        <button style={countbuttonStyle}
+                                                onClick={() => updateAmount(cashAmount, false)}>
                                             -
                                         </button>
                                     </div>
                                     <p style={donationCashText}>{unvalidAmountUnit[cashAmount]}</p>
-                                    <div style={{ paddingLeft: contentsWidth * 0.01 }}>
+                                    <div style={{paddingLeft: contentsWidth * 0.01}}>
                                         <button style={countbuttonStyle} onClick={() => updateAmount(cashAmount, true)}>
                                             +
                                         </button>
@@ -274,7 +274,14 @@ const Donation = () => {
                                 if (totalAmount === 0) {
                                     alert("충전금액을 선택해주세요.");
                                 } else if (window.confirm(`${formattedTotalAmount}원을 충전하시겠습니까?`)) {
-                                    navigate(routingPath.payments, { state: { userNickname, totalAmount, contentsWidth, contentsHeight } });
+                                    navigate(routingPath.payments, {
+                                        state: {
+                                            userNickname,
+                                            totalAmount,
+                                            contentsWidth,
+                                            contentsHeight
+                                        }
+                                    });
                                 }
                             }}
                         >
@@ -283,7 +290,6 @@ const Donation = () => {
                     </div>
                 </div>
             </div>
-            <SiteInfo width={contentsWidth} height={contentsHeight} />
         </div>
     );
 };

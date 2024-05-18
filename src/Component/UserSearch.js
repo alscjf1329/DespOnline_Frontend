@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import backEndUri from "../Constants/Constants";
-import SiteInfo from "./SiteInfo";
 import tier from "../Constants/TierConstants";
 
 const Ranking = () => {
@@ -256,7 +255,12 @@ const Ranking = () => {
                                     <td style={tdStyle}>{data.levelRank.job}</td>
                                     <td style={tdStyle}>LV. {data.levelRank.level}</td>
                                     <td style={tdStyle}>{data.levelRank.expPercent.toFixed(3)} %</td>
-                                    <td style={{ flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <td style={{
+                                        flexDirection: "column",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center"
+                                    }}>
                                         <img
                                             src={tier[data.playerVersusRecord.tier]}
                                             alt={data.playerVersusRecord.tier}
@@ -301,7 +305,6 @@ const Ranking = () => {
                     </div>
                 )}
             </div>
-            <SiteInfo width={contentsWidth} height={contentsHeight} />
         </div>
     );
 };

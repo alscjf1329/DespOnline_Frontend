@@ -3,7 +3,6 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import "../CSS/Signin.css";
 import backEndUri from "../Constants/Constants";
-import SiteInfo from "./SiteInfo";
 import {useDispatch} from "react-redux";
 import {login} from '../auth/authSlice';
 import routingPath from "../Constants/PathConstant";
@@ -126,7 +125,6 @@ const Signin = () => {
                         로그인
                     </button>
                 </form>
-                <SiteInfo width={contentsWidth} height={contentsHeight}/>
             </div>
         </div>
     );

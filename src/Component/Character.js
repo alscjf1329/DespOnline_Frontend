@@ -1,17 +1,15 @@
-import React, { useRef, useEffect, useState } from "react";
-import SiteInfo from "./SiteInfo";
-import { AiOutlineClose } from "react-icons/ai";
-import { Radar } from "react-chartjs-2";
-import Chart from "chart.js/auto";
+import React, {useEffect, useRef, useState} from "react";
+import {AiOutlineClose} from "react-icons/ai";
+import {Radar} from "react-chartjs-2";
 
 import {
+    CharacterExplanation,
     CharacterImgSrc_1,
     CharacterImgSrc_2,
     CharacterImgSrc_3,
     CharacterPlayVideo,
     CharacterRaderChart,
     CharacterRaderChartOptions,
-    CharacterExplanation,
 } from "../Constants/CharacterConstants";
 
 const Character = () => {
@@ -145,10 +143,12 @@ const Character = () => {
     return (
         <div ref={contentsRef} className="contents">
             <div style={modalStyle} className="contents">
-                <div className="modalClose" onClick={closeModal} style={{ display: "flex", justifyContent: "flex-end", padding: 20 }}>
-                    <AiOutlineClose className="modalCloseIcon" size={contentsWidth > 600 ? 30 : contentsWidth > 500 ? 20 : 15} color="white" />
+                <div className="modalClose" onClick={closeModal}
+                     style={{display: "flex", justifyContent: "flex-end", padding: 20}}>
+                    <AiOutlineClose className="modalCloseIcon"
+                                    size={contentsWidth > 600 ? 30 : contentsWidth > 500 ? 20 : 15} color="white"/>
                 </div>
-                <div id={chracterYoutubeKey} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div id={chracterYoutubeKey} style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                     <iframe
                         width={contentsWidth > 700 ? contentsWidth * 0.4 : contentsWidth}
                         height={contentsWidth > 700 ? contentsWidth * 0.225 : contentsWidth}
@@ -159,14 +159,19 @@ const Character = () => {
                         allowFullScreen
                     ></iframe>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", marginTop: contentsHeight * 0.05 }}>
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-evenly",
+                    marginTop: contentsHeight * 0.05
+                }}>
                     <div
                         style={{
                             width: contentsWidth > 700 ? contentsWidth * 0.25 : contentsWidth,
                             height: contentsWidth > 700 ? contentsWidth * 0.25 : contentsWidth,
                         }}
                     >
-                        <Radar data={chracterRaderChartData} options={CharacterRaderChartOptions.chartOptions} />
+                        <Radar data={chracterRaderChartData} options={CharacterRaderChartOptions.chartOptions}/>
                     </div>
                     <div
                         style={{
@@ -186,10 +191,10 @@ const Character = () => {
                 </div>
             </div>
             <div style={imgContainder}>
-                <div style={{ ...characterImgLayout, textAlign: "center" }}>
+                <div style={{...characterImgLayout, textAlign: "center"}}>
                     {Object.keys(CharacterImgSrc_1).map((characterName) => (
                         <div
-                            style={{ position: "relative", overflow: "hidden" }}
+                            style={{position: "relative", overflow: "hidden"}}
                             className="img_box"
                             key={characterName}
                             onMouseEnter={() => handleMouseEnter(characterName)}
@@ -208,7 +213,7 @@ const Character = () => {
                         </div>
                     ))}
                 </div>
-                <div style={{ ...characterImgLayout, textAlign: "center" }}>
+                <div style={{...characterImgLayout, textAlign: "center"}}>
                     {Object.keys(CharacterImgSrc_2).map((characterName) => (
                         <div
                             style={{
@@ -220,7 +225,8 @@ const Character = () => {
                             onMouseEnter={() => handleMouseEnter(characterName)}
                             onMouseLeave={handleMouseLeave}
                         >
-                            <div className="img_box__overlay" onClick={characterName === "VALKYRIE" ? () => openModal(characterName) : null}>
+                            <div className="img_box__overlay"
+                                 onClick={characterName === "VALKYRIE" ? () => openModal(characterName) : null}>
                                 <img
                                     src={CharacterImgSrc_2[characterName]}
                                     alt={characterName}
@@ -238,10 +244,10 @@ const Character = () => {
                         </div>
                     ))}
                 </div>
-                <div style={{ ...characterImgLayout, textAlign: "center" }}>
+                <div style={{...characterImgLayout, textAlign: "center"}}>
                     {Object.keys(CharacterImgSrc_3).map((characterName) => (
                         <div
-                            style={{ position: "relative", overflow: "hidden" }}
+                            style={{position: "relative", overflow: "hidden"}}
                             className="img_box"
                             key={characterName}
                             onMouseEnter={() => handleMouseEnter(characterName)}
@@ -256,13 +262,12 @@ const Character = () => {
                                     style={hoveredCharacter === characterName ? isHovered : isUnHovered}
                                 />
                             </div>
-                            <p style={hoveredCharacter === characterName ? isTextHovered : isTextUnHovered}>Comming Soon...</p>
+                            <p style={hoveredCharacter === characterName ? isTextHovered : isTextUnHovered}>Comming
+                                Soon...</p>
                         </div>
                     ))}
                 </div>
             </div>
-
-            <SiteInfo width={contentsWidth} height={contentsHeight} />
         </div>
     );
 };

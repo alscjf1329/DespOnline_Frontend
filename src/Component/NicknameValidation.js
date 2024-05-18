@@ -1,6 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import SiteInfo from "./SiteInfo";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import backEndUri from "../Constants/Constants";
 
 const NicknameValidation = () => {
@@ -65,7 +64,8 @@ const NicknameValidation = () => {
         };
     }, []);
 
-    useEffect(() => {});
+    useEffect(() => {
+    });
 
     //결제 페이지 이동
     const navigate = useNavigate();
@@ -194,10 +194,13 @@ const NicknameValidation = () => {
                             onClick={() => {
                                 handleCheckNickname(); // 닉네임 확인 함수 호출
                                 if (!isButtonHidden) {
-                                    navigate(Donationpath, { state: { confirmedNickname } });
+                                    navigate(Donationpath, {state: {confirmedNickname}});
                                 }
                             }}
-                            style={{ ...paymentsbuttonStyle, display: isButtonHidden ? "none" : "block" }} // 버튼 숨김 여부에 따라 스타일 설정
+                            style={{
+                                ...paymentsbuttonStyle,
+                                display: isButtonHidden ? "none" : "block"
+                            }} // 버튼 숨김 여부에 따라 스타일 설정
                             onMouseOver={(e) => {
                                 e.target.style.backgroundColor = "#372B2A";
                             }}
@@ -213,7 +216,6 @@ const NicknameValidation = () => {
                     </div>
                 </div>
             </div>
-            <SiteInfo width={contentsWidth} height={contentsHeight} />
         </div>
     );
 };

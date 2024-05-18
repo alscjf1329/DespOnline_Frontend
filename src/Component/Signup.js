@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import "../CSS/Signup.css";
 import backEndUri from "../Constants/Constants";
-import SiteInfo from "./SiteInfo";
 import SignupConfirm from "./SignupConfirm";
 
 const Signup = () => {
@@ -169,7 +168,6 @@ const Signup = () => {
 
                 }
             </div>
-            <SiteInfo width={contentsWidth} height={contentsHeight}/>
         </div>
     );
 };

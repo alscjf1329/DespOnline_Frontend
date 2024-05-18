@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import backEndUri from "../Constants/Constants";
-import SiteInfo from "./SiteInfo";
 import tier from "../Constants/TierConstants";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -181,7 +180,12 @@ const Ranking = () => {
                                 >
                                     <td style={tdStyle}>{index + 1}</td>
                                     <td style={tdStyle}>{item.nickname}</td>
-                                    <td style={{ flexDirection: "column", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <td style={{
+                                        flexDirection: "column",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center"
+                                    }}>
                                         <img
                                             src={tier[item.record.tier]}
                                             alt={item.record.tier}
@@ -240,7 +244,6 @@ const Ranking = () => {
                     </table>
                 )}
             </div>
-            <SiteInfo width={contentsWidth} height={contentsHeight} />
         </div>
     );
 };

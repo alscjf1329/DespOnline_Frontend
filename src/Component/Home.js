@@ -1,8 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "../CSS/Contents.css";
-import { Ranking, Announcement, banner } from "../Constants/HomeConstants";
-import SiteInfo from "./SiteInfo";
-import { useNavigate } from "react-router-dom";
+import {Announcement, banner, Ranking} from "../Constants/HomeConstants";
+import {useNavigate} from "react-router-dom";
 import backEndUri from "../Constants/Constants";
 
 const Home = () => {
@@ -124,7 +123,8 @@ const Home = () => {
     return (
         <div ref={contentsRef} className="contents">
             <div style={HomeBannerStyle}>
-                <img src={banner.url} alt="DESP-ONLINE" style={{ width: "100%", height: contentsWidth > 700 ? contentsWidth / 4.5 : contentsWidth / 3 }} />
+                <img src={banner.url} alt="DESP-ONLINE"
+                     style={{width: "100%", height: contentsWidth > 700 ? contentsWidth / 4.5 : contentsWidth / 3}}/>
             </div>
             <div style={HomeInfoStyle}>
                 <div style={HomeAnnouncementStyle}>
@@ -141,30 +141,30 @@ const Home = () => {
                     <div style={HomeAnnouncementBoxStyle}>
                         <table style={tableStyle}>
                             <thead style={theadStyle}>
-                                <tr>
-                                    <th>순위</th>
-                                    <th>닉네임</th>
-                                    <th>직업</th>
-                                    <th>레벨</th>
-                                    <th>경험치</th>
-                                </tr>
+                            <tr>
+                                <th>순위</th>
+                                <th>닉네임</th>
+                                <th>직업</th>
+                                <th>레벨</th>
+                                <th>경험치</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {dataLEVEL.length > 0 &&
-                                    dataLEVEL.slice(0, 3).map(
-                                        (
-                                            item,
-                                            index // 0부터 2까지만 출력
-                                        ) => (
-                                            <tr key={index} style={trStyle}>
-                                                <td style={tdStyle}>{index + 1}</td>
-                                                <td style={tdStyle}>{item.nickname}</td>
-                                                <td style={tdStyle}>{item.job}</td>
-                                                <td style={tdStyle}>{item.level}</td>
-                                                <td style={tdStyle}>{item.expPercent.toFixed(3)}</td>
-                                            </tr>
-                                        )
-                                    )}
+                            {dataLEVEL.length > 0 &&
+                                dataLEVEL.slice(0, 3).map(
+                                    (
+                                        item,
+                                        index // 0부터 2까지만 출력
+                                    ) => (
+                                        <tr key={index} style={trStyle}>
+                                            <td style={tdStyle}>{index + 1}</td>
+                                            <td style={tdStyle}>{item.nickname}</td>
+                                            <td style={tdStyle}>{item.job}</td>
+                                            <td style={tdStyle}>{item.level}</td>
+                                            <td style={tdStyle}>{item.expPercent.toFixed(3)}</td>
+                                        </tr>
+                                    )
+                                )}
                             </tbody>
                         </table>
                     </div>
@@ -178,7 +178,6 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <SiteInfo width={contentsWidth} height={contentsHeight} />
         </div>
     );
 };

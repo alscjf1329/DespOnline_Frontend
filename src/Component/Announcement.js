@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { announcementIndex, announcementTutorial } from "../Constants/AnnouncementConstants";
-import SiteInfo from "./SiteInfo";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -156,7 +155,6 @@ const Announcement = () => {
                     </Slider>
                 </div>
             </div>
-            <SiteInfo width={contentsWidth} height={contentsHeight} />
         </div>
     );
 };

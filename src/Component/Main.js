@@ -20,6 +20,7 @@ import EventPage from "./EventPage";
 import CardFlipping from "./EventPages/CardFlipping/CardFlipping";
 import backEndUri from "../Constants/Constants";
 import routingPath from "../Constants/PathConstant";
+import SiteInfo from "./SiteInfo";
 
 
 const Main = () => {
@@ -176,6 +177,7 @@ const Main = () => {
                     </Routes>
                 </div>
             </div>
+            <SiteInfo/>
         </div>
     );
 };
