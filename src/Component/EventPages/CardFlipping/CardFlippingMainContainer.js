@@ -130,7 +130,7 @@ const MainContainer = ({eventId, eventInfo, eventUserInfo, setEventUserInfo}) =>
     };
 
     const cardStyle = {
-        flexBasis: "calc(min(20%, 200px) - 10px)",
+        flexBasis: "calc(20% - 10px)",
         cursor: "pointer",
         transition: "transform 0.3s ease-in-out",
         transformOrigin: "center",
