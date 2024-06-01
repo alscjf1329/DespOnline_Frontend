@@ -53,6 +53,7 @@ const MainContainer = ({eventId, eventInfo, eventUserInfo, setEventUserInfo}) =>
             .then((flipResult) => {
                 setEventUserInfo(prevState => ({
                     ...prevState,
+                    remainingFlipCount: flipResult.remainingFlipCountInGame,
                     flipOpportunity: flipResult.remainingFlipOpportunity,
                     rewardLevel: flipResult.rewardLevel
                 }));
