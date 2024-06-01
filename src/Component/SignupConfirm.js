@@ -74,15 +74,15 @@ const SignupConfirm = (signupData) => {
                     <div className="signup-confirm-loading">인증 중...</div>
                 )}
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="signin-form">
-                <h2 className="heading">서버 유저 인증</h2>
-                <div className="input-container">
+            <form onSubmit={handleSubmit(onSubmit)} className="signup-confirm-input-form">
+                <h2 className="signup-confirm-heading">서버 유저 인증</h2>
+                <div className="signup-confirm-input-container">
                     <label htmlFor="nickname" className="label">닉네임</label>
                     <input
                         id="nickname"
                         {...register('nickname', {required: '닉네임을 입력하세요'})}
                         type="text"
-                        className="input-field"
+                        className="signup-confirm-input-field"
                         placeholder="마크 서버 닉네임 입력"
                     />
                     {errors.nickname && (
@@ -90,13 +90,13 @@ const SignupConfirm = (signupData) => {
                     )}
                 </div>
 
-                <div className="input-container">
+                <div className="signup-confirm-input-container">
                     <label htmlFor="authenticationCode" className="label">인증 코드</label>
                     <input
                         id="authenticationCode"
                         {...register('authenticationCode', {required: '인증 코드를 입력하세요'})}
                         type="password"
-                        className="input-field"
+                        className="signup-confirm-input-field"
                         placeholder="/token으로 발급받은 인증코드 입력"
                     />
                     {errors.authenticationCode && (
@@ -104,7 +104,7 @@ const SignupConfirm = (signupData) => {
                     )}
                 </div>
 
-                <button type="submit" className="button">
+                <button type="submit" className="signup-confirm-button">
                     회원가입
                 </button>
             </form>
