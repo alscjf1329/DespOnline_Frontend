@@ -20,7 +20,7 @@ const MainContainer = ({eventId, eventInfo, eventUserInfo, setEventUserInfo}) =>
             return;
         }
 
-        if (flipIndexes.length >= eventInfo.info.flipCount) {
+        if (flipIndexes.length >= eventInfo.details.flipCount) {
             return;
         }
 
@@ -29,7 +29,7 @@ const MainContainer = ({eventId, eventInfo, eventUserInfo, setEventUserInfo}) =>
     };
 
     const onClickFlipButton = () => {
-        if (flipIndexes.length !== eventInfo.info.flipCount) {
+        if (flipIndexes.length !== eventInfo.details.flipCount) {
             return;
         }
         const data = {
@@ -130,7 +130,7 @@ const MainContainer = ({eventId, eventInfo, eventUserInfo, setEventUserInfo}) =>
     };
 
     const cardStyle = {
-        flexBasis: "calc(20% - 10px)",
+        flexBasis: "calc(min(20%, 200px) - 10px)",
         cursor: "pointer",
         transition: "transform 0.3s ease-in-out",
         transformOrigin: "center",
@@ -184,7 +184,7 @@ const MainContainer = ({eventId, eventInfo, eventUserInfo, setEventUserInfo}) =>
                                 ...textStyle,
                                 ...(card !== null ? flippedTextStyle : unFlippedStyle())
                             }}>
-                                <img src={eventInfo.info.imgs[card]} alt="Card Back"
+                                <img src={eventInfo.details.imgs[card]} alt="Card Back"
                                      style={{maxWidth: "100%", height: "auto"}}/>
                             </div>
                         </div>

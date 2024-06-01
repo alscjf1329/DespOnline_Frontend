@@ -41,7 +41,7 @@ const CardFlippingSubContainer = ({eventInfo, eventUserInfo}) => {
                             </tr>
                             </thead>
                             <tbody>
-                            {eventInfo.info.rewardDescription.map((description, index) => (
+                            {eventInfo.details.rewardDescription.map((description, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{description}</td>
